@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 
 import CustomCounter from './CustomCounter';
-import VideoView from './VideoView';
+// import VideoView from './VideoView';
 
 class App extends React.Component {
   _showToast = () =>
@@ -25,6 +25,7 @@ class App extends React.Component {
   _showAlert = message => Alert.alert(message);
 
   _onCountChange = event => {
+    NativeModules.CounterViewModel.onCountChangeClick(event.nativeEvent.count);
     if (this._countFirstChanged) {
       return;
     }
@@ -61,20 +62,20 @@ class App extends React.Component {
             <Text style={styles.buttonText}>SHOW NATIVE TOAST FROM REACT</Text>
           </View>
         </TouchableNativeFeedback>
-        {/*<TouchableNativeFeedback onPress={this._triggerAlert}>*/}
-        {/*  <View style={styles.button}>*/}
-        {/*    <Text style={styles.buttonText}>*/}
-        {/*      TRIGGER REACT ALERT FROM NATIVE*/}
-        {/*    </Text>*/}
-        {/*  </View>*/}
-        {/*</TouchableNativeFeedback>*/}
-        <VideoView
-          style={{flex: 1, width: '100%', height: '100%'}}
-          url="https://www.radiantmediaplayer.com/media/bbb-360p.mp4"
-        />
+        <TouchableNativeFeedback onPress={this._triggerAlert}>
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>
+              TRIGGER REACT ALERT FROM NATIVE
+            </Text>
+          </View>
+        </TouchableNativeFeedback>
+        {/*<VideoView*/}
+        {/*  style={{flex: 1, width: '100%', height: '100%'}}*/}
+        {/*  url="https://www.radiantmediaplayer.com/media/bbb-360p.mp4"*/}
+        {/*/>*/}
         <CustomCounter
           onCountChange={this._onCountChange}
-          numberColor={'black'}
+          numberColor={'red'}
           style={styles.counter}
         />
       </View>

@@ -31,7 +31,7 @@ class CounterView : FrameLayout, View.OnClickListener {
     }
 
     fun setCountColor(color: Int) {
-        mCountTextView!!.setTextColor(color)
+        mCountTextView?.setTextColor(color)
     }
 
     override fun onClick(view: View) {

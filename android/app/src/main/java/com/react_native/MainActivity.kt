@@ -2,7 +2,10 @@ package com.react_native
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
+import androidx.core.view.forEach
+import androidx.core.view.get
 import com.facebook.react.ReactInstanceManager
 import com.facebook.react.ReactPackage
 import com.facebook.react.ReactRootView
@@ -11,6 +14,7 @@ import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler
 import com.facebook.react.shell.MainReactPackage
 import com.react_native.communication.CommunicationPackage
 import com.react_native.counter.CounterViewPackage
+import com.react_native.counter.logic.CounterLogicPackage
 import java.util.*
 
 class MainActivity : Activity(), DefaultHardwareBackBtnHandler {
@@ -25,6 +29,7 @@ class MainActivity : Activity(), DefaultHardwareBackBtnHandler {
         packages.add(CommunicationPackage())
         packages.add(CounterViewPackage())
         packages.add(VideoViewPackage())
+        packages.add(CounterLogicPackage())
         mReactRootView = ReactRootView(this)
         mReactInstanceManager = ReactInstanceManager.builder()
                 .setApplication(application)
@@ -37,6 +42,13 @@ class MainActivity : Activity(), DefaultHardwareBackBtnHandler {
                 .build()
         mReactRootView?.startReactApplication(mReactInstanceManager, REACT_MODULE_NAME, null)
         setContentView(mReactRootView)
+        getAllViews()
+    }
+
+    private fun getAllViews() {
+        mReactRootView?.forEach {
+            Log.d("getAllViews", "Get View Name = ${it.javaClass.simpleName}")
+        }
     }
 
     override fun onPause() {
